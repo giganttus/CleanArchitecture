@@ -67,19 +67,21 @@ namespace CleanArchitecture.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           
-            app.UseDeveloperExceptionPage();
-
-            #region Swagger
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
+            if (env.IsDevelopment())
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Diplomat Onion template");
-            });
+                app.UseDeveloperExceptionPage();
 
-            #endregion
+                #region Swagger
+
+                app.UseSwagger();
+
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Diplomat Onion template");
+                });
+
+                #endregion
+            }
 
             app.UseHttpsRedirection();
 
